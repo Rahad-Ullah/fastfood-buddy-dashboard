@@ -8,14 +8,12 @@ export default function AuthLayout({ children }: Readonly<{ children: React.Reac
         <Image
           src="/logo.png"
           alt="logo"
-          width={600}
+          width={800}
           height={800}
-          className="w-80 h-120 object-cover" // Keep the image responsive
+          className="max-w-xs h-auto"
         />
       </div>
-      <div className="flex justify-start items-start">
-        {children}
-      </div>
+      <div className="flex justify-start items-start">{children}</div>
       <Toaster />
     </div>
   );
