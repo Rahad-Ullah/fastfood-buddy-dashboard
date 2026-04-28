@@ -17,7 +17,7 @@ export default function BuddyInsights({ data }: { data: { content: string } }) {
     }
 
     try {
-      const termsPost = await myFetch("/disclaimer", {
+      const termsPost = await myFetch("/v1/disclaimer", {
         method: "POST",
         body: { type: "buddy-insights", content: content },
       });

@@ -9,7 +9,7 @@ const Home = async ({
 }: {
   searchParams: { restaurant: string; category: string };
 }) => {
-  const res = await myFetch("/restaurants", {
+  const res = await myFetch("/v1/restaurants", {
     tags: ["restaurants"],
   });
 
@@ -21,7 +21,7 @@ const Home = async ({
     params.append("category", category);
   }
 
-  const singleDetails = await myFetch(`/foods?${params.toString()}`, {
+  const singleDetails = await myFetch(`/v1/foods?${params.toString()}`, {
     tags: ["food"],
   });
 

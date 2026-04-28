@@ -34,7 +34,7 @@ export default function Users({ data }: any) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await myFetch(`/users/toggle-status/${id}`, {
+          const res = await myFetch(`/v1/users/toggle-status/${id}`, {
             method: "PATCH",
           });
 

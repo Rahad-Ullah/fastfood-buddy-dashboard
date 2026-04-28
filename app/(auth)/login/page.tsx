@@ -15,7 +15,7 @@ const SignInForm = () => {
   const [showCurrent, setShowCurrent] = useState(false);
 
   const onSubmit = async (data: any) => {
-    const res = await myFetch("/auth/login", {
+    const res = await myFetch("/v1/auth/login", {
       method: "POST",
       body: {
         email: data.email,

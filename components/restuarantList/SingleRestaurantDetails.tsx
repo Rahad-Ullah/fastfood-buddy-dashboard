@@ -27,7 +27,7 @@ export default function SingleRestaurantDetails({ details }: any) {
       {hasData ? (
         <div className="grid grid-cols-12 gap-4">
           <ItemName details={details} />
-          <ItemDetailsRightside data={details} />
+          {/* <ItemDetailsRightside data={details} /> */}
         </div>
       ) : (
         <div className="flex items-center justify-center  mt-20 text-xl rounded-lg">

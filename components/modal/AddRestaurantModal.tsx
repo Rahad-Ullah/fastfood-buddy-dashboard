@@ -60,7 +60,7 @@ export default function AddRestaurantModal({ trigger }: any) {
     }
 
     try {
-      const res = await myFetch("/restaurants/create", {
+      const res = await myFetch("/v1/restaurants/create", {
         method: "POST",
         body: formData,
       });

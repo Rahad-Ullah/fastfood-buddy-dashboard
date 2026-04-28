@@ -2,7 +2,7 @@ import { myFetch } from "@/app/utils/myFetch";
 import Users from "@/components/users/Users";
 
 export default async function page() {
-  const res = await myFetch("/users", {
+  const res = await myFetch("/v1/users", {
     tags: ["users"],
   });
 

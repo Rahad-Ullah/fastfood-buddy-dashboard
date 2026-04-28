@@ -13,7 +13,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
 import { toast } from "sonner";
 import { myFetch } from "@/app/utils/myFetch";
@@ -24,19 +23,12 @@ import { useRouter } from "next/navigation";
 type FormValues = {
   name: string;
   category: "Breakfast" | "Lunch" | "Dinner" | "Snacks" | "";
-  impactSpeed: "Fast" | "Moderate" | "Slow" | "";
-  digestionSpeed: "Fast" | "Moderate" | "Slow" | "";
-  spike: "Often spikes" | "Spikes later" | "Often spikes later" | "";
-  fact: string;
-  reason: string;
-  absorption: string;
-  description: string;
-  typicalServing: {
-    carbs: number;
-    fat: number;
-    protein: number;
-    fiber: number;
-  };
+  // typicalServing: {
+  //   carbs: number;
+  //   fat: number;
+  //   protein: number;
+  //   fiber: number;
+  // };
 };
 
 export default function RestuarantForm({
@@ -49,7 +41,7 @@ export default function RestuarantForm({
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await myFetch(`/foods/${restaurantId}`);
+      const res = await myFetch(`/v2/foods/${restaurantId}`);
       setDetails(res?.data);
     };
     fetchData();
@@ -65,19 +57,12 @@ export default function RestuarantForm({
     defaultValues: {
       name: details?.name || "",
       category: "",
-      impactSpeed: "",
-      digestionSpeed: "",
-      spike: "",
-      fact: "",
-      reason: "",
-      absorption: "",
-      description: "",
-      typicalServing: {
-        carbs: 0,
-        fat: 0,
-        protein: 0,
-        fiber: 0,
-      },
+      // typicalServing: {
+      //   carbs: 0,
+      //   fat: 0,
+      //   protein: 0,
+      //   fiber: 0,
+      // },
     },
   });
 
@@ -87,19 +72,12 @@ export default function RestuarantForm({
     reset({
       name: details.name ?? "",
       category: details.category ?? "",
-      impactSpeed: details.impactSpeed ?? "",
-      digestionSpeed: details.digestionSpeed ?? "",
-      spike: details.spike ?? "",
-      fact: details.fact ?? "",
-      reason: details.reason ?? "",
-      absorption: details.absorption ?? "",
-      description: details.description ?? "",
-      typicalServing: {
-        carbs: details.typicalServing?.carbs ?? 0,
-        fat: details.typicalServing?.fat ?? 0,
-        protein: details.typicalServing?.protein ?? 0,
-        fiber: details.typicalServing?.fiber ?? 0,
-      },
+      // typicalServing: {
+      //   carbs: details.typicalServing?.carbs ?? 0,
+      //   fat: details.typicalServing?.fat ?? 0,
+      //   protein: details.typicalServing?.protein ?? 0,
+      //   fiber: details.typicalServing?.fiber ?? 0,
+      // },
     });
   }, [details, reset]);
 
@@ -110,7 +88,7 @@ export default function RestuarantForm({
     };
 
     const id = details?._id ? "PATCH" : "POST";
-    const url = details?._id ? `/foods/${details._id}` : "/foods/create";
+    const url = details?._id ? `/v2/foods/${details._id}` : "/v2/foods/create";
 
     try {
       const res = await myFetch(url, {
@@ -179,111 +157,9 @@ export default function RestuarantForm({
             )}
           </div>
         </div>
-        {/* Impact & Digestion */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <Label>Impact Speed</Label>
-            <Controller
-              name="impactSpeed"
-              control={control}
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select impact" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Fast">Fast</SelectItem>
-                    <SelectItem value="Moderate">Moderate</SelectItem>
-                    <SelectItem value="Slow">Slow</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
 
-          <div>
-            <Label>Digestion Speed</Label>
-            <Controller
-              name="digestionSpeed"
-              control={control}
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select digestion" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Fast">Fast</SelectItem>
-                    <SelectItem value="Moderate">Moderate</SelectItem>
-                    <SelectItem value="Slow">Slow</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
-
-          <div>
-            <Label>Spikes Info</Label>
-            <Controller
-              name="spike"
-              control={control}
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select digestion" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Often spikes">Often spikes</SelectItem>
-                    <SelectItem value="Spikes later">Spikes later</SelectItem>
-                    <SelectItem value="Often spikes later">
-                      Often spikes later
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
-        </div>
-        {/* Facts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label>What usually happens</Label>
-            <Controller
-              name="fact"
-              control={control}
-              render={({ field }) => (
-                <Textarea {...field} rows={3} placeholder="Type here" />
-              )}
-            />
-          </div>
-
-          <div>
-            <Label>Why this matters?</Label>
-            <Controller
-              name="reason"
-              control={control}
-              render={({ field }) => (
-                <Textarea {...field} rows={3} placeholder="Type here" />
-              )}
-            />
-          </div>
-        </div>
-        {/* Digestion Profile */}
-        <div className="space-y-3">
-          <Label>Absorption</Label>
-          <Input
-            {...register("absorption")}
-            placeholder="e.g. Moderate absorption"
-          />
-
-          <Label>Description</Label>
-          <Controller
-            name="description"
-            control={control}
-            render={({ field }) => <Textarea {...field} rows={3} />}
-          />
-        </div>
         {/* Nutrients */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {(["carbs", "fat", "protein", "fiber"] as const).map((item) => (
             <div key={item}>
               <Label className="capitalize">{item}</Label>
@@ -305,7 +181,8 @@ export default function RestuarantForm({
               />
             </div>
           ))}
-        </div>
+        </div> */}
+
         {/* Submit */}
         <button type="submit" className="authButtonStyle">
           {details?._id ? "Update" : "Add Now"}

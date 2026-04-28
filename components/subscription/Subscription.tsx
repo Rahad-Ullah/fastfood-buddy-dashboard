@@ -4,7 +4,7 @@ import { myFetch } from "@/app/utils/myFetch";
 import SubscriptionModal from "../modal/SubscriptionModal";
 
 export default async function PricingCard() {
-  const res = await myFetch("/packages", {
+  const res = await myFetch("/v1/packages", {
     tags: ["packages"],
   });
   return (

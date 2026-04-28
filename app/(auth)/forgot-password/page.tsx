@@ -11,7 +11,7 @@ const ForgotPassword = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {
-    const res = await myFetch("/auth/forget-password", {
+    const res = await myFetch("/v1/auth/forget-password", {
       method: "POST",
       body: {
         email: data.email,

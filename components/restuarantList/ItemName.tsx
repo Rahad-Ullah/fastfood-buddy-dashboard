@@ -25,7 +25,7 @@ export default function ItemName({ details }: any) {
   }, [selectedCategory]);
 
   return (
-    <div className="col-span-4 bg-[#00243F] rounded-lg p-3">
+    <div className="col-span-12 bg-[#00243F] rounded-lg p-3">
       <h4 className="text-md mb-2 text-cyan-400">Item Name</h4>
       <ul className="space-y-1 text-sm">
         {details?.map((item: any, i: number) => (

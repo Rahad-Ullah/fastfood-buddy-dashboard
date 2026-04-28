@@ -2,8 +2,8 @@ import { myFetch } from "@/app/utils/myFetch";
 import ChartBar from "@/components/overview/Chartbar";
 
 export default async function Page() {
-  const res = await myFetch("/analytics/overview");
-  const chatData = await myFetch("/analytics/user-growth");
+  const res = await myFetch("/v1/analytics/overview");
+  const chatData = await myFetch("/v1/analytics/user-growth");
 
   return (
     <div className="">

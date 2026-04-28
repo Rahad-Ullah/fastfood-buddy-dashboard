@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
     }
 
     // Role check (Admin only)
-    const user = await myFetch("/users/profile");
+    const user = await myFetch("/v1/users/profile");
 
     if (user?.data?.role !== "Admin" && user?.data?.role !== "Super Admin") {
       const response = NextResponse.redirect(new URL("/login", request.url));

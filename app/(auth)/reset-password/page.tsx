@@ -11,7 +11,7 @@ const ResetPassword = () => {
 
   const onSubmit = async (data: any) => {
     const resetToken = localStorage.getItem("resetToken") || "";
-    const res = await myFetch("/auth/reset-password", {
+    const res = await myFetch("/v1/auth/reset-password", {
       method: "POST",
       token: resetToken,
       body: {

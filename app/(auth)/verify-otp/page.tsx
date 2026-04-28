@@ -28,7 +28,7 @@ const VerifyOtp = () => {
   // Handle form submission
   const onSubmit = async (data: any) => {
     const resetEmail = localStorage.getItem("resetEmail");
-    const res = await myFetch("/auth/verify-email", {
+    const res = await myFetch("/v1/auth/verify-email", {
       method: "POST",
       body: {
         email: resetEmail,

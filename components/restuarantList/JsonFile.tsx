@@ -41,7 +41,7 @@ export default function JsonFile({ restaurantId }: { restaurantId: string }) {
     formData.append("restaurant", restaurantId);
 
     try {
-      const res = await myFetch("/foods/import", {
+      const res = await myFetch("/v1/foods/import", {
         method: "POST",
         body: formData,
       });

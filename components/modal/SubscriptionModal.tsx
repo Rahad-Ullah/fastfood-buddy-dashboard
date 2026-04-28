@@ -64,7 +64,7 @@ export default function SubscriptionModal({
     };
 
     const id = item?._id ? "PATCH" : "POST";
-    const url = item?._id ? `/packages/${item?._id}` : "/packages/create";
+    const url = item?._id ? `/v1/packages/${item?._id}` : `/v1/packages/create`;
 
     try {
       const res = await myFetch(url, {

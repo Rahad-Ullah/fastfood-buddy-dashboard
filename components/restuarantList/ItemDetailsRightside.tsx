@@ -35,7 +35,7 @@ export default function ItemDetailsRightside({
 
     const fetchData = async () => {
       try {
-        const res = await myFetch(`/foods/${id}`);
+        const res = await myFetch(`/v1/foods/${id}`);
         setDetails(res?.data || null);
       } catch (err) {
         console.error(err);
@@ -60,7 +60,7 @@ export default function ItemDetailsRightside({
       return;
     }
     try {
-      const res = await myFetch(`/foods/${id}`, {
+      const res = await myFetch(`/v1/foods/${id}`, {
         method: "DELETE",
       });
 
@@ -77,20 +77,6 @@ export default function ItemDetailsRightside({
 
   return (
     <div className="col-span-8 bg-[#00243F] rounded-lg p-4">
-      {/* Facts Section */}
-      <h3 className="text-cyan-400 text-sm mb-1">What usually happens</h3>
-      <p className="text-sm mb-3">{data?.[0]?.fact || "No data available"}</p>
-
-      <h3 className="text-cyan-400 text-sm mb-1">Why this matters?</h3>
-      <p className="text-sm mb-4">{data?.[0]?.reason || "No data available"}</p>
-
-      <h3 className="text-cyan-400 text-sm mb-1">Digestion Profile</h3>
-      <p className="text-sm mb-4">
-        <span className="text-cyan-400 font-medium">Moderate Absorption</span>
-        <br />
-        {data?.[0]?.absorption || "No data available"}
-      </p>
-
       {/* Nutrition Box */}
       <div className="bg-[#083A5A] rounded-lg p-3 mb-4">
         <h4 className="mb-2 text-cyan-300 text-xl">Typical Serving</h4>

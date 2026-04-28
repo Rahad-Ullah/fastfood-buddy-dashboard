@@ -14,7 +14,7 @@ export default function Navbar() {
   const [profile, setProfile] = useState<Profile | null>(null);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await myFetch("/users/profile", {
+      const res = await myFetch("/v1/users/profile", {
         method: "GET",
         tags: ["profile"],
       });

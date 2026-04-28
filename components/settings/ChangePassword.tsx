@@ -33,7 +33,7 @@ export default function ChangePassword() {
       confirmPassword: data?.confirmPassword,
     };
     try {
-      const res = await myFetch("/auth/change-password", {
+      const res = await myFetch("/v1/auth/change-password", {
         method: "POST",
         body: payload,
       });

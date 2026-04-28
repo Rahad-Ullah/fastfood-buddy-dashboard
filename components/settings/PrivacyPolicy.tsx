@@ -24,9 +24,9 @@ export default function PrivacyPolicy({
     }
 
     try {
-      const termsPost = await myFetch("/disclaimer", {
+      const termsPost = await myFetch("/v1/disclaimer", {
         method: "POST",
-        body: { type: "terms-and-conditions", content: value },
+        body: { type: "privacy-policy", content: value },
       });
 
       if (termsPost?.success) {

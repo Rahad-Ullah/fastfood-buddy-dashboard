@@ -56,7 +56,7 @@ export default function Profile({ data }: ProfileProps) {
 
     try {
       setLoading(true);
-      const res = await myFetch("/users/profile", {
+      const res = await myFetch("/v1/users/profile", {
         method: "PATCH",
         body: formData,
       });
