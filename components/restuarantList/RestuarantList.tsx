@@ -1,16 +1,10 @@
 "use client";
-import { Ellipsis, Search } from "lucide-react";
+import { PencilLine, Search } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
+import EditRestaurantModal from "../modal/EditRestaurantModal";
 
 export default function RestaurantList({ data }: any) {
   const router = useRouter();
@@ -75,23 +69,14 @@ export default function RestaurantList({ data }: any) {
               />
               <h2 className="text-sm font-medium">{item.name}</h2>
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size={"icon"}>
-                  <Ellipsis />
+            <EditRestaurantModal
+              trigger={
+                <Button variant="ghost" size="icon">
+                  <PencilLine />
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuGroup>
-                  <DropdownMenuItem className="cursor-pointer">
-                    Edit
-                  </DropdownMenuItem>
-                  {/* <DropdownMenuItem className="cursor-pointer text-red-500">
-                    Delete
-                  </DropdownMenuItem> */}
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+              }
+              item={item}
+            />
           </div>
         ))}
       </div>
