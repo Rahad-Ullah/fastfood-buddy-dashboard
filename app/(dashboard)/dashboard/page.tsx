@@ -1,18 +1,22 @@
 import { myFetch } from "@/app/utils/myFetch";
 import ChartBar from "@/components/overview/Chartbar";
 
-export default async function Page() {
-  const res = await myFetch("/v1/analytics/overview");
-  const chatData = await myFetch("/v1/analytics/user-growth");
+export default async function AnalyticsPage({ searchParams }: any) {
+  const { year } = await searchParams;
+
+  const overviewRes = await myFetch("/v1/analytics/overview");
+  const chartData = await myFetch(
+    `/v1/analytics/user-growth?year=${year ?? new Date().getFullYear()}`,
+  );
 
   return (
     <div className="">
       <div className="grid grid-cols-2 gap-6 mb-8">
-        <StatCard title="Total User" value={res?.data?.totalUsers} />
-        <StatCard title="Active Users" value={res?.data?.activeUsers} />
+        <StatCard title="Total User" value={overviewRes?.data?.totalUsers} />
+        <StatCard title="Active Users" value={overviewRes?.data?.activeUsers} />
       </div>
       <div className="">
-        <ChartBar card={res?.data} chart={chatData?.data} />
+        <ChartBar card={overviewRes?.data} chart={chartData?.data} />
       </div>
     </div>
   );

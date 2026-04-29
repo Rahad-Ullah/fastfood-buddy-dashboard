@@ -15,10 +15,10 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
 
 export default function ChartBar({
   chart,
@@ -26,11 +26,19 @@ export default function ChartBar({
   card: { totalUsers: string; activeUsers: string };
   chart: any;
 }) {
+  const updateSearchParams = useUpdateSearchParams();
+  
   const data = chart?.map((item: any) => ({
     month: item?.month,
     count: item?.count,
     active: true,
   }));
+
+  const currentYear = new Date().getFullYear();
+  const last3years = Array.from(
+    { length: 3 },
+    (_, index) => currentYear - index,
+  );
 
   return (
     <div className="rounded-xl border border-sky-500/30 bg-linear-to-b from-[#062A44] to-[#041C2D] p-6 mt-5">
@@ -39,15 +47,17 @@ export default function ChartBar({
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-white">User Growth</h2>
-        <Select>
+        <Select onValueChange={(year) => updateSearchParams({ year })}>
           <SelectTrigger className="w-45">
-            <SelectValue placeholder="2025" />
+            <SelectValue placeholder={currentYear.toString()} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="2025">2025</SelectItem>
-              <SelectItem value="2026">2026</SelectItem>
-              <SelectItem value="2027">2027</SelectItem>
+              {last3years.map((year) => (
+                <SelectItem key={year} value={year.toString()}>
+                  {year}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -78,7 +88,7 @@ export default function ChartBar({
             />
             <Line
               type="monotone"
-              dataKey="users"
+              dataKey="count"
               stroke="#00E5FF"
               strokeWidth={3}
               dot={{ r: 4 }}
