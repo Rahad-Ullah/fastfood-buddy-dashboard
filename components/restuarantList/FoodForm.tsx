@@ -2,9 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import AddRestaurantModal from "../modal/AddRestaurantModal";
 import { Input } from "../ui/input";
 import {
   Select,
@@ -109,22 +106,13 @@ export default function RestuarantForm({
   };
 
   return (
-    <div>
-      {/* Add Restaurant */}
-      <div className="flex justify-end mb-4">
-        <AddRestaurantModal
-          trigger={
-            <Button className="bg-[#FF6D00] hover:bg-[#FF6D00] text-white px-7 h-10 rounded-full text-lg">
-              <Plus /> Add Restaurant
-            </Button>
-          }
-        />
-      </div>
+    <section className="max-w-2xl mx-auto">
       {!details?._id && <JsonFile restaurantId={restaurantId} />}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-7">
+        <h1 className="text-2xl font-semibold text-white">Edit Food Item</h1>
         {/* Category & Name */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <div>
             <Label>Item Category</Label>
             <Controller
@@ -188,6 +176,6 @@ export default function RestuarantForm({
           {details?._id ? "Update" : "Add Now"}
         </button>
       </form>
-    </div>
+    </section>
   );
 }

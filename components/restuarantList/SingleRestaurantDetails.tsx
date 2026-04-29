@@ -1,16 +1,28 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Input } from "../ui/input";
 import ItemName from "./ItemName";
 import Categories from "./Categoryes";
-import ItemDetailsRightside from "./ItemDetailsRightside";
+import AddRestaurantModal from "../modal/AddRestaurantModal";
+import { Button } from "../ui/button";
 
 export default function SingleRestaurantDetails({ details }: any) {
   const hasData = details?.length > 0;
 
   return (
-    <div className="rounded-xl p-4 text-white w-full max-w-5xl">
+    <section className="rounded-xl p-4 text-white w-full max-w-5xl">
+      {/* Add Restaurant */}
+      <div className="flex justify-end mb-4">
+        <AddRestaurantModal
+          trigger={
+            <Button className="bg-[#FF6D00] hover:bg-[#FF6D00] text-white px-7 h-10 rounded-full text-lg">
+              <Plus /> Add Restaurant
+            </Button>
+          }
+        />
+      </div>
+
       {/* Search */}
       <div className="relative mb-4">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-300 w-4 h-4" />
@@ -34,6 +46,6 @@ export default function SingleRestaurantDetails({ details }: any) {
           <span className="">No data found. Please Add New Item.</span>
         </div>
       )}
-    </div>
+    </section>
   );
 }

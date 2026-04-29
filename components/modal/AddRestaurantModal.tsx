@@ -25,6 +25,7 @@ export default function AddRestaurantModal({ trigger }: any) {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
@@ -68,6 +69,9 @@ export default function AddRestaurantModal({ trigger }: any) {
       if (res.success) {
         toast.success(res.message);
         revalidate("restaurants");
+        reset();
+        setPreview(null);
+        setOpen(false);
       } else {
         toast.error((res as any).error[0].message ?? "Upload failed");
       }
@@ -128,7 +132,7 @@ export default function AddRestaurantModal({ trigger }: any) {
             {...register("name", { required: "Restaurant name is required" })}
             type="text"
             placeholder="Type Your Restaurant Name"
-            className="w-full bg-transparent border border-cyan-600 rounded-full px-4 py-3 text-sm text-orange-400 placeholder-orange-400 focus:outline-none mb-2"
+            className="w-full bg-transparent border border-cyan-600 rounded-full px-4 py-3 text-sm focus:outline-none mb-2"
           />
 
           {errors.name && (
