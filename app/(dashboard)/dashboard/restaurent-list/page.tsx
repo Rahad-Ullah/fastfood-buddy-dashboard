@@ -26,7 +26,7 @@ const Home = async ({
   });
 
   return (
-    <div className="grid grid-cols-[30%_70%]">
+    <div className="grid grid-cols-[30%_70%] gap-6">
       <div>
         <RestaurantList data={res?.data} />
       </div>

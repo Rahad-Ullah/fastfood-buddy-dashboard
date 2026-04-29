@@ -1,8 +1,16 @@
 "use client";
-import { Search } from "lucide-react";
+import { Ellipsis, Search } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 
 export default function RestaurantList({ data }: any) {
   const router = useRouter();
@@ -30,7 +38,7 @@ export default function RestaurantList({ data }: any) {
   };
 
   return (
-    <div className="w-80 bg-primary rounded-2xl p-4 text-white">
+    <div className="bg-primary rounded-2xl p-4 text-white">
       {/* Search */}
       <div className="flex items-center gap-2 rounded-full px-3 py-2 mb-4 bg-[#00243F] border border-[#00596B]">
         <Search size={16} className="text-gray-300" />
@@ -50,23 +58,40 @@ export default function RestaurantList({ data }: any) {
           <div
             onClick={() => handleCategoryClick(item?._id)}
             key={item?._id}
-            className={`flex items-center gap-3 rounded-full px-3 py-2 cursor-pointer ${
+            className={`flex justify-between items-center gap-3 rounded-full px-3 py-2 cursor-pointer ${
               selected === item._id
                 ? "bg-[#00758C] text-white"
                 : "bg-[#054768] text-gray-200"
             }`}
           >
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+            <div className="flex items-center gap-3">
               <Image
                 src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.logo}`}
                 width={10}
                 height={10}
                 alt={item.name}
-                className="w-5 h-5"
+                className="w-8 h-8 bg-white rounded-full object-cover"
                 unoptimized
               />
+              <h2 className="text-sm font-medium">{item.name}</h2>
             </div>
-            <span className="text-sm font-medium">{item.name}</span>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size={"icon"}>
+                  <Ellipsis />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Edit
+                  </DropdownMenuItem>
+                  {/* <DropdownMenuItem className="cursor-pointer text-red-500">
+                    Delete
+                  </DropdownMenuItem> */}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         ))}
       </div>
