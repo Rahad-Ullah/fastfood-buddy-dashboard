@@ -95,7 +95,7 @@ export default function JsonFile({ restaurantId }: { restaurantId: string }) {
 
             {/* File Name / Placeholder */}
             <p className="text-[#00C1E8] font-medium text-center">
-              {file?.name ?? "Upload CSV / PDF"}
+              {file?.name ?? "Upload JSON File"}
             </p>
           </div>
         }

@@ -110,7 +110,9 @@ export default function RestuarantForm({
       {!details?._id && <JsonFile restaurantId={restaurantId} />}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-7">
-        <h1 className="text-2xl font-semibold text-white">Edit Food Item</h1>
+        <h1 className="text-2xl font-semibold text-white">
+          {details?._id ? "Edit" : "Add"} Food Item
+        </h1>
         {/* Category & Name */}
         <div className="grid grid-cols-1 gap-4">
           <div>
