@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { myFetch } from "@/app/utils/myFetch";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -12,6 +11,7 @@ import { Switch } from "../ui/switch";
 import AddBuddyInsightModal from "./AddBuddyInsightModal";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
+import { useSearchParams } from "next/navigation";
 
 interface IBuddyInsights {
   _id: string;
@@ -22,6 +22,7 @@ interface IBuddyInsights {
 
 export default function BuddyInsights({ data }: { data: IBuddyInsights[] }) {
   const updateSearchParams = useUpdateSearchParams();
+  const outcome = useSearchParams().get("outcome");
   
   // handle delete
   const handleDelete = async (id: string) => {
@@ -87,7 +88,7 @@ export default function BuddyInsights({ data }: { data: IBuddyInsights[] }) {
       {/* header */}
       <section className="flex justify-between mb-4">
         <Tabs
-          defaultValue="Good"
+          defaultValue={outcome || "Good"}
           onValueChange={(value) => updateSearchParams({ outcome: value })}
         >
           <TabsList>
@@ -108,47 +109,55 @@ export default function BuddyInsights({ data }: { data: IBuddyInsights[] }) {
 
       {/* content */}
       <section className="grid items-center gap-4">
-        {data?.map((item: any) => (
-          <div
-            key={item?._id}
-            className="p-2 px-4 bg-primary rounded-xl flex justify-between items-center gap-4"
-          >
-            <div>
-              <h3>{item?.message}</h3>
-            </div>
-            {/* actions */}
-            <div className="flex items-center gap-2">
-              <Switch
-                checked={item?.isActive}
-                onCheckedChange={() => handleActivation(item)}
-                className="data-[state=unchecked]:bg-gray-500 data-[state=checked]:bg-[#FF6D00] cursor-pointer"
-              />
+        {data?.length > 0 &&
+          data?.map((item: any) => (
+            <div
+              key={item?._id}
+              className="p-2 px-4 bg-primary rounded-xl flex justify-between items-center gap-4"
+            >
+              <div>
+                <h3>{item?.message}</h3>
+              </div>
+              {/* actions */}
+              <div className="flex items-center gap-2">
+                <Switch
+                  checked={item?.isActive}
+                  onCheckedChange={() => handleActivation(item)}
+                  className="data-[state=unchecked]:bg-gray-500 data-[state=checked]:bg-[#FF6D00] cursor-pointer"
+                />
 
-              <EditBuddyInsightModal
-                trigger={
-                  <Button variant={"ghost"} size={"icon"}>
-                    <PencilLine />
-                  </Button>
-                }
-                item={item}
-              />
-              <DeleteModal
-                triggerBtn={
-                  <Button
-                    variant={"ghost"}
-                    size={"icon"}
-                    className="hover:bg-red-500 hover:text-white"
-                  >
-                    <Trash2 />
-                  </Button>
-                }
-                action={handleDelete}
-                itemId={item._id}
-                actionBtnText="Confirm"
-              ></DeleteModal>
+                <EditBuddyInsightModal
+                  trigger={
+                    <Button variant={"ghost"} size={"icon"}>
+                      <PencilLine />
+                    </Button>
+                  }
+                  item={item}
+                />
+                <DeleteModal
+                  triggerBtn={
+                    <Button
+                      variant={"ghost"}
+                      size={"icon"}
+                      className="hover:bg-red-500 hover:text-white"
+                    >
+                      <Trash2 />
+                    </Button>
+                  }
+                  action={handleDelete}
+                  itemId={item._id}
+                  actionBtnText="Confirm"
+                ></DeleteModal>
+              </div>
             </div>
+          ))}
+
+        {/* no data */}
+        {data?.length === 0 && (
+          <div className="text-center py-16">
+            <p className="text-lg text-muted-foreground">No insights found.</p>
           </div>
-        ))}
+        )}
       </section>
     </div>
   );
