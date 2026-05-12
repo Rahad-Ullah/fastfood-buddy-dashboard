@@ -31,6 +31,11 @@ export const menuItems = [
     path: "/dashboard/restaurent-list",
   },
   {
+    label: "Buddy Insights",
+    icon: BotMessageSquare,
+    path: "/dashboard/buddy-insights",
+  },
+  {
     label: "Subscription",
     icon: CreditCard,
     path: "/dashboard/subscription",
@@ -44,11 +49,6 @@ export const menuItems = [
     label: "Privacy Policy",
     icon: Shield,
     path: "/dashboard/privacy-policy",
-  },
-  {
-    label: "Buddy Insights",
-    icon: BotMessageSquare,
-    path: "/dashboard/buddy-insights",
   },
   {
     label: "Change Password",
